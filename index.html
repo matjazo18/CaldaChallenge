@@ -532,14 +532,17 @@
     const active = CATS.filter(c => counts[c.id].total > 0);
     const maxN   = active.length ? Math.max(...active.map(c => counts[c.id].total)) : 1;
 
-    catBars.innerHTML = active.map(c => `
-      <div class="cat-bar-row">
-        <span class="cat-bar-label" style="color:${c.color}">${esc(c.label)}</span>
-        <div class="cat-bar-track">
-          <div class="cat-bar-fill" style="width:${counts[c.id].total/maxN*100}%;background:${c.color}"></div>
-        </div>
-        <span class="cat-bar-count">${counts[c.id].done}/${counts[c.id].total}</span>
-      </div>`).join('');
+    catBars.innerHTML = active.map(c => {
+      const pct = counts[c.id].total ? Math.round(counts[c.id].done / counts[c.id].total * 100) : 0;
+      return `
+        <div class="cat-bar-row">
+          <span class="cat-bar-label" style="color:${c.color}">${esc(c.label)}</span>
+          <div class="cat-bar-track">
+            <div class="cat-bar-fill" style="width:${pct}%;background:${c.color}"></div>
+          </div>
+          <span class="cat-bar-count">${counts[c.id].done}/${counts[c.id].total}</span>
+        </div>`;
+    }).join('');
 
     // Task list — pending first, done at bottom
     const sorted = [...S.tasks].sort((a, b) => Number(a.done) - Number(b.done));
@@ -596,7 +599,7 @@
             </div>
             <span class="todo-text" data-action="edit" data-id="${t.id}" title="Double-click to edit">${esc(t.text)}</span>
             <div class="task-actions">
-              <button class="sub-btn ${subCls}" data-action="sub-panel" data-id="${t.id}">${subLabel}</button>
+              ${!t.done ? `<button class="sub-btn ${subCls}" data-action="sub-panel" data-id="${t.id}">${subLabel}</button>` : ''}
               <button class="del-btn" data-action="delete" data-id="${t.id}" aria-label="Delete">
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                   <path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="0.8" stroke-linecap="round"/>
@@ -606,13 +609,13 @@
           </div>
           ${!t.done ? `<div class="task-meta-row">${catHtml}${priHtml}</div>` : ''}
         </div>
-        <div class="subtask-panel ${panOpen}">
+        ${!t.done ? `<div class="subtask-panel ${panOpen}">
           ${subItems}
           <div class="sub-add-row">
             <input class="sub-add-input" placeholder="Add subtask…" maxlength="100" data-sadd="${t.id}"/>
             <button class="sub-add-btn" data-action="sub-add" data-id="${t.id}">+</button>
           </div>
-        </div>
+        </div>` : ''}
       </div>`;
   }
 

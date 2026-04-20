@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>HEYDAY</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #FF3D00;
+    --bg:      #F9F9F9;
+    --dark:    #0A0A0A;
+    --gray:    #848484;
+    --border:  #EEEEEE;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    background: var(--bg);
+    width: 390px;
+    min-height: 988px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 48px 16px;
+    gap: 32px;
+  }
+
+  /* ─── Intro ─── */
+  .intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    width: 358px;
+  }
+
+  .header-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 358px;
+    height: 24px;
+  }
+
+  .hey {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 140%;
+    letter-spacing: 0.3em;
+    color: var(--primary);
+    flex: 1;
+  }
+
+  .profile-btn {
+    width: 24px;
+    height: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .title-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 358px;
+    align-self: stretch;
+  }
+
+  .focus-title {
+    font-weight: 800;
+    font-size: 32px;
+    line-height: 120%;
+    color: var(--dark);
+  }
+
+  .focus-sub {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 140%;
+    color: var(--gray);
+  }
+
+  .focus-sub strong {
+    color: var(--primary);
+    font-weight: 400;
+  }
+
+  /* ─── Progress Card ─── */
+  .progress-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 24px 8px;
+    gap: 16px;
+    width: 358px;
+    background: linear-gradient(126.15deg, rgba(255,255,255,0.15) 42.31%, rgba(255,61,0,0.15) 100%);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+
+  .chart-wrap {
+    position: relative;
+    width: 196px;
+    height: 196px;
+    flex-shrink: 0;
+  }
+
+  /* Ellipse 7 — faint bg circle */
+  .chart-track {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--bg);
+    opacity: 0.4;
+    border: 1px solid var(--border);
+    box-shadow: 0 0 10.3px rgba(2,6,23,0.07);
+  }
+
+  .chart-wrap svg {
+    position: absolute;
+    inset: 0;
+    transform: rotate(-90deg);
+  }
+
+  .chart-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .chart-pct {
+    font-weight: 800;
+    font-size: 48px;
+    line-height: 120%;
+    color: var(--dark);
+  }
+
+  /* Stats below ring — column layout */
+  .chart-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .chart-label {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 140%;
+    color: var(--gray);
+  }
+
+  .tasks-left {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 140%;
+    color: var(--dark);
+  }
+
+  .tasks-done-line {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 140%;
+    color: var(--dark);
+  }
+
+  /* ─── Items Section ─── */
+  .items-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    width: 358px;
+  }
+
+  .section-label {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 140%;
+    letter-spacing: 0.3em;
+    color: var(--primary);
+    width: 358px;
+  }
+
+  /* Inline input row */
+  .new-item-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    width: 358px;
+    height: 36px;
+  }
+
+  .input-wrap {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px 0;
+    gap: 4px;
+    flex: 1;
+    height: 36px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .task-input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 140%;
+    color: var(--dark);
+    outline: none;
+  }
+
+  .task-input::placeholder { color: var(--gray); font-weight: 600; }
+
+  .add-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 1px;
+    width: 36px;
+    height: 36px;
+    background: var(--primary);
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: opacity 0.15s;
+  }
+
+  .add-btn:active { opacity: 0.8; }
+
+  /* ─── To-do list ─── */
+  .todo-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 358px;
+  }
+
+  /* Active item */
+  .todo-item {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 16px 12px;
+    gap: 10px;
+    width: 358px;
+    height: 52px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+
+  /* Completed item */
+  .todo-item.done {
+    background: var(--border);
+    border: none;
+    opacity: 0.3;
+  }
+
+  /* Checkbox — unchecked */
+  .checkbox {
+    box-sizing: border-box;
+    width: 16px;
+    height: 16px;
+    background: var(--bg);
+    border: 1px solid var(--primary);
+    border-radius: 4px;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  .checkbox:focus-visible { box-shadow: 0 0 0 2px rgba(255,61,0,0.3); }
+
+  /* Checkbox — checked */
+  .todo-item.done .checkbox {
+    background: var(--primary);
+    border-color: var(--primary);
+  }
+
+  .todo-text {
+    flex: 1;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 140%;
+    color: var(--dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .todo-item.done .todo-text { text-decoration: line-through; }
+
+  .delete-btn {
+    width: 16px;
+    height: 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    flex-shrink: 0;
+    opacity: 0.6;
+    transition: opacity 0.15s;
+  }
+
+  .delete-btn:hover { opacity: 1; }
+
+  .empty {
+    font-size: 14px;
+    color: var(--gray);
+    padding: 8px 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- Intro -->
+<div class="intro">
+  <div class="header-row">
+    <span class="hey">HEY, JOHN.</span>
+    <button class="profile-btn" aria-label="Profile">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="10" stroke="#FF3D00" stroke-width="0.667" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="12" cy="10" r="3"  stroke="#FF3D00" stroke-width="0.667" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M6.168 18.849A10 10 0 0 1 12 17a10 10 0 0 1 5.832 1.849"
+              stroke="#FF3D00" stroke-width="0.667" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+  <div class="title-block">
+    <h1 class="focus-title">TODAY'S FOCUS</h1>
+    <p class="focus-sub">To become <strong>Calda's</strong><br>next developer</p>
+  </div>
+</div>
+
+<!-- Progress Card -->
+<div class="progress-card">
+  <div class="chart-wrap">
+    <div class="chart-track"></div>
+    <svg width="196" height="196" viewBox="0 0 196 196" aria-hidden="true">
+      <!-- track -->
+      <circle cx="98" cy="98" r="80" fill="none" stroke="#EEEEEE" stroke-width="18"/>
+      <!-- progress fill -->
+      <circle id="ring" cx="98" cy="98" r="80" fill="none" stroke="#FF3D00" stroke-width="18"
+        stroke-linecap="round"
+        stroke-dasharray="502.655"
+        stroke-dashoffset="502.655"
+        style="transition: stroke-dashoffset 0.6s cubic-bezier(0.4,0,0.2,1)"/>
+    </svg>
+    <div class="chart-center">
+      <span class="chart-pct" id="chart-pct">0%</span>
+    </div>
+  </div>
+
+  <div class="chart-info">
+    <span class="chart-label">Progress</span>
+    <span class="tasks-left"    id="tasks-left">0 tasks left</span>
+    <span class="tasks-done-line" id="tasks-done-line">0 done</span>
+  </div>
+</div>
+
+<!-- Items Section -->
+<div class="items-section">
+  <div class="section-label">QUICK ENTRY</div>
+
+  <div class="new-item-row">
+    <div class="input-wrap">
+      <input class="task-input" id="taskInput" type="text"
+        placeholder="Add new tasks (e.g Finish report, Read docu..."
+        maxlength="140" autocomplete="off"/>
+    </div>
+    <button class="add-btn" id="addBtn" aria-label="Add task">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <path d="M10 4v12M4 10h12" stroke="#F9F9F9" stroke-width="0.667" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="todo-list" id="todoList"></div>
+</div>
+
+<script>
+(() => {
+  const CIRC = 2 * Math.PI * 80; // 502.655
+
+  let tasks = [
+    { id: 1, text: 'Finish assignment #1', done: false },
+    { id: 2, text: 'Finish assignment #2', done: false },
+    { id: 3, text: 'Finish assignment #3', done: true },
+    { id: 4, text: 'Finish assignment #4', done: true },
+    { id: 5, text: 'Finish assignment #5', done: true },
+  ];
+  let uid = tasks.length + 1;
+
+  const ring          = document.getElementById('ring');
+  const chartPct      = document.getElementById('chart-pct');
+  const tasksLeftEl   = document.getElementById('tasks-left');
+  const tasksDoneLine = document.getElementById('tasks-done-line');
+  const todoList      = document.getElementById('todoList');
+  const taskInput     = document.getElementById('taskInput');
+
+  function esc(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function render() {
+    const total   = tasks.length;
+    const done    = tasks.filter(t => t.done).length;
+    const pending = total - done;
+    const pct     = total ? Math.round(done / total * 100) : 0;
+
+    // Ring
+    ring.style.strokeDashoffset = CIRC * (1 - pct / 100);
+    chartPct.textContent        = pct + '%';
+
+    // Stats column
+    tasksLeftEl.textContent   = pending + ' task' + (pending !== 1 ? 's' : '') + ' left';
+    tasksDoneLine.textContent = done + ' done';
+
+    // Task list — incomplete first
+    const sorted = [...tasks].sort((a, b) => Number(a.done) - Number(b.done));
+
+    if (sorted.length === 0) {
+      todoList.innerHTML = '<div class="empty">No tasks yet.</div>';
+      return;
+    }
+
+    todoList.innerHTML = sorted.map(t => `
+      <div class="todo-item${t.done ? ' done' : ''}">
+        <div class="checkbox"
+          role="checkbox" aria-checked="${t.done}" tabindex="0"
+          data-toggle="${t.id}">
+          ${t.done
+            ? `<svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path d="M2 6l3 3 5-5" stroke="#F9F9F9" stroke-width="0.667"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+               </svg>`
+            : ''}
+        </div>
+        <span class="todo-text">${esc(t.text)}</span>
+        <button class="delete-btn" data-delete="${t.id}" aria-label="Remove task">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M4 4l8 8M12 4l-8 8" stroke="#000000" stroke-width="0.667" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    `).join('');
+  }
+
+  // Delegated events
+  todoList.addEventListener('click', e => {
+    const tog = e.target.closest('[data-toggle]');
+    const del = e.target.closest('[data-delete]');
+    if (tog) {
+      const id = +tog.dataset.toggle;
+      tasks = tasks.map(t => t.id === id ? { ...t, done: !t.done } : t);
+      render();
+    }
+    if (del) {
+      const id = +del.dataset.delete;
+      tasks = tasks.filter(t => t.id !== id);
+      render();
+    }
+  });
+
+  todoList.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      const tog = e.target.closest('[data-toggle]');
+      if (tog) { e.preventDefault(); tog.click(); }
+    }
+  });
+
+  function addTask() {
+    const text = taskInput.value.trim();
+    if (!text) { taskInput.focus(); return; }
+    tasks.unshift({ id: uid++, text, done: false });
+    taskInput.value = '';
+    render();
+    taskInput.focus();
+  }
+
+  document.getElementById('addBtn').addEventListener('click', addTask);
+  taskInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') addTask();
+  });
+
+  render();
+})();
+</script>
+
+</body>
+</html>
